@@ -1,8 +1,19 @@
 import React from 'react';
+import { Questions } from './components/Questions/Questions';
+import { Startup } from './components/Startup/Startup';
 
 export const App = () => {
   return (
-   <div>Danusky</div>
+    <>
+    {true && (
+      <Startup />
+    )}
+      
+      {false && (
+      <Questions />
+      )}
+    
+      </>
   );
 }
 
