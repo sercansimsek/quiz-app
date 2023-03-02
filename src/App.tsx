@@ -3,7 +3,7 @@ import { Questions } from './components/Questions/Questions';
 import { Startup } from './components/Startup/Startup';
 
 export const App = () => {
-  const [isGameStarted, setIsGameStarted] = useState(true);
+  const [isGameStarted] = useState(true);
   return (
     <>
       {isGameStarted 
