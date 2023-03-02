@@ -4,8 +4,8 @@ import { getQuestions } from '../../utils/api';
 import './Questions.css'
 
 export const Questions = () => {
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [errorMessage, setErrorMesage] = useState('');
+    const [,setQuestions] = useState<Question[]>([]);
+    const [ ,setErrorMesage] = useState('');
 
     useEffect(() => {
         getQuestions()
