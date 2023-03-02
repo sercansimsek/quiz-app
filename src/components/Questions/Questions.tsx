@@ -1,7 +1,18 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { Question } from '../../types/Question';
+import { getQuestions } from '../../utils/api';
 import './Questions.css'
 
 export const Questions = () => {
+    const [questions, setQuestions] = useState<Question[]>([]);
+    const [errorMessage, setErrorMesage] = useState('');
+
+    useEffect(() => {
+        getQuestions()
+            .then(setQuestions)
+            .catch(error => setErrorMesage('unable to load questions'));
+    }, []);
+
     return(
         <>
         <img 
@@ -10,21 +21,24 @@ export const Questions = () => {
     alt="top-right-corner"        
         />
             <body>
-                <p className="question">How would one say goodbye in Spanish?</p>
+            
+                <>
+                <p className="question"></p>
 
                 <div className="answers">
                 <button 
                     type='button'
                     className="answer"
-                > <p className="answer-text">Adiós</p> 
+                > <p className="answer-text"></p> 
                 </button>
 
-                <button 
-                    type='button'
-                    className="answer"
-                > <p className="answer-text">Hola</p> 
-                </button>
-
+                
+                      <button 
+                      type='button'
+                      className="answer"
+                  > <p className="answer-text"></p> 
+                  </button>
+                    
                 <button 
                     type='button'
                     className="answer"
@@ -37,6 +51,8 @@ export const Questions = () => {
                 > <p className="answer-text">Salir</p> 
                 </button>
                 </div>
+                </>
+          
                <div className="seperator"></div>
 
                <button 
