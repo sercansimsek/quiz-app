@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
-import { Questions } from './components/Questions/Questions';
-import { Startup } from './components/Startup/Startup';
+import { MainMenu } from './components/MainMenu';
+import { Quiz } from './components/Quiz';
 
 export const App = () => {
-  const [isGameStarted] = useState(true);
+  const [gameState, setGameState] = useState('menu');
+
+  const toggleState = () => {
+    setGameState('quiz');
+  }
+
   return (
     <>
-      {isGameStarted 
-        ? ( <Questions /> ) 
-        : ( <Startup /> )
-      }     
+    <div className="App">
+          {gameState === 'menu' && (
+          <MainMenu toggle={toggleState}/>
+        )}
+
+        {gameState === 'quiz' && (
+          <Quiz />
+        )}  
+    </div>
     </>
   );
 }
