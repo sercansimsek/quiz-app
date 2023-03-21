@@ -1,8 +1,24 @@
-import { Question } from '../types/Question'
+import { Options } from '../types/Options';
 
-const BASE_URL = 'https://opentdb.com/api.php?amount=5'
+export const getQuestions = (gameOptions: Options) => {
+	const { category, difficulty, type } = gameOptions;
 
-export const getQuestions = (): Promise<Question[]> => {
-    return fetch(BASE_URL)
-    .then(response => response.json())
+	let categoryQueryParam = "";
+	let difficultyQueryParam = "";
+	let typeQueryParam = "";
+
+	if (category !== "")
+		categoryQueryParam = `&category=${category}`;
+
+	if (difficulty !== "")
+		difficultyQueryParam = `&difficulty=${difficulty}`;
+
+	if (type !== "")
+		typeQueryParam = `&type=${type}`;
+
+	let apiUrl = `https://opentdb.com/api.php?amount=5${categoryQueryParam}${difficultyQueryParam}${typeQueryParam}`;
+
+	return fetch(apiUrl)
+		.then(res => res.json())
+		.then(data => data.results);
 }
