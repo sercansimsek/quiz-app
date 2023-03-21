@@ -19,7 +19,6 @@ export const App = () => {
 		setShowNoQuestionsError(Boolean);
 	};
 		
-	
 	const handleChange = (event: any) => {
 		const { name, value } = event.target;
 
@@ -46,7 +45,7 @@ export const App = () => {
 				:
 					<section className="game-intro">
 						<h1 className="game-title">Quizzical</h1>
-						<p className="game-text">Answer the questions and test your knowledge!</p>
+						<p className="game-text">Time to test your knowledge!</p>
 
 						{showNoQuestionsError &&
 							<h2 className="noQuestions-text">
