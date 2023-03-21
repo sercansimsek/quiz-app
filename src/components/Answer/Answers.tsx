@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { decode } from 'html-entities';
 import { nanoid } from "nanoid";
 import React, { useState, useEffect } from 'react'
@@ -29,52 +30,34 @@ export const OptionPart: React.FC<Props> = ({
     incorrectAnswers,
     handleSelectAnswer
  }) => {
-    const [randomOrder, setRandomOrder] = useState<JSX.Element[]>([]);
-    const falsyAnswers = incorrectAnswers.map(answer => {
-        const falsyCLassnames = `
-        ${selectedAnswer === answer 
-            ? "question-btn-selected" 
-            : "question-btn"}
-        ${(showAnswer && selectedAnswer === answer) && "question-btn-incorrect"}`;
-
-        return <button
-            key={nanoid()}
-            className={falsyCLassnames}
-            onClick={() => handleSelectAnswer(id, answer)}
-        >
-            {decode(answer)}
-        </button>
-    });
-
-    const truthyClassname = `
-    ${selectedAnswer === correctAnswer 
-        ? "question-btn-selected" 
-        : "question-btn"}
-    ${showAnswer && "question-btn-correct"}`;
-
-    const correctAnswerElement = 
-        <button
-            key={nanoid()}
-            className={truthyClassname}
-            onClick={() => handleSelectAnswer(id, correctAnswer)}
-        >
-            {decode(correctAnswer)}
-        </button>
+    const [randomOrder, setRandomOrder] = useState<string[]>([]);
 
     useEffect(() => {
-        falsyAnswers.push(correctAnswerElement);
-
-        const randomizedAnswers = falsyAnswers.sort(() => (Math.random() > 0.5) ? 1 : -1);
-
-        setRandomOrder(randomizedAnswers);
-    }, [])
-
+        let allAnswers = incorrectAnswers.concat(correctAnswer).sort(() => Math.random() - 0.5);
+        
+        setRandomOrder(allAnswers);
+    }, [correctAnswer, incorrectAnswers]) 
+    
   return (
-    <div className="options">   
+    <div className="question-container">   
 	    <div>
-            <h3 className="option-text">
+            <>
+            <h3 className="question-text">
                 {decode(question)}</h3>
-            {randomOrder}
+            {randomOrder.map(answer => (                           
+                <button
+                    key={nanoid()}
+                    onClick={() => handleSelectAnswer(id, answer)}
+                    className={classNames('question-btn', {
+                        'question-btn-selected': selectedAnswer === answer,
+                        'question-btn-incorrect': showAnswer && answer !== correctAnswer && selectedAnswer === answer,
+                        'question-btn-correct': showAnswer && answer === correctAnswer,
+                    })}
+                >
+                    {decode(answer)}
+                </button>                              
+    ))}
+            </>           
 		</div>                               
     </div>
   )

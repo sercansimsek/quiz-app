@@ -115,8 +115,8 @@ export const QuestionPart: React.FC<Props> = ({ gameOptions, handleGameStart, ha
 
 				<button
 					className={`btn-primary ${checkAnswerBtn
-												? "btn-check-answers"
-												: "btn-check-answers-disabled"}`}
+						? "btn-check-answers"
+						: "btn-check-answers-disabled"}`}
 					onClick={isGameOver ? resetGame : checkAnswers}
 				>
 					{isGameOver ? "Play again" : "Check answers"}
